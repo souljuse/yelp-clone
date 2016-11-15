@@ -46,6 +46,16 @@ feature 'restaurants' do
       expect(current_path).to eq('/restaurants')
       expect(page).to have_content('Restaurant deleted successfully')
     end
+
+    scenario 'user cannot create a restaurant with a name which is already in use' do
+      visit '/restaurants'
+      click_link 'Add a restaurant'
+      fill_in 'Name' , with: 'Osteria da Mario'
+      fill_in 'Description' , with: 'That\'s chicken!!'
+      click_button('Create Restaurant')
+      expect(current_path).to eq('/restaurants')
+      expect(page).to have_content('error')
+    end
   end
 
   context 'create new restaurant' do
@@ -56,6 +66,19 @@ feature 'restaurants' do
       fill_in 'Description' , with: 'That\'s chicken!!'
       click_button('Create Restaurant')
       expect(current_path).to eq('/restaurants')
+    end
+  end
+
+  context 'creating restaurants' do
+    context 'an invalid restaurant' do
+      scenario 'does not let you submit a name that is too short' do
+        visit '/restaurants'
+        click_link 'Add a restaurant'
+        fill_in 'Name', with: 'gn'
+        click_button 'Create Restaurant'
+        expect(page).not_to have_css 'h2', text: 'gn'
+        expect(page).to have_content('Name is too short (minimum is 3 characters)')
+      end
     end
   end
 

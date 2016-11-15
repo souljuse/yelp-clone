@@ -7,10 +7,10 @@ feature 'ratings' do
     scenario 'Users can leave a review' do
       visit '/restaurants'
       click_link('Chinese Restaurant')
-      click_button('Write a Review')
-      fill_in 'Review', with: 'I am not the masses but Chinese food is always nice'
-      click_button('Post')
-      expect(current_path).to eq('/restaurants/#{chinese.id}')
+      click_link('Write a Review')
+      fill_in 'review_thoughts', with: 'I am not the masses but Chinese food is always nice'
+      click_button('Create Review')
+      expect(current_path).to eq("/restaurants/#{chinese.id}")
       expect(page).to have_content('I am not the masses but Chinese food is always nice')
     end
   end
