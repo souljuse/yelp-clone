@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_many :restaurants
+  has_many :reviews
   has_many :reviewed_restaurants, through: :reviews, source: :restaurant
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -21,8 +22,8 @@ class User < ApplicationRecord
     reviewed_restaurants.include? restaurant
   end
 
-  def build_restaurant(attributes = {})
-    restaurant = restaurants.build(attributes)
-    restaurant
-  end
+  # def build_restaurant(attributes = {})
+  #   restaurant = restaurants.build(attributes)
+  #   restaurant
+  # end
 end

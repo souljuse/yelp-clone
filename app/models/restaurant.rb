@@ -10,4 +10,9 @@ class Restaurant < ApplicationRecord
     review
   end
 
+  # def build_restaurant(attributes = {})
+  #   restaurant = restaurants.build(attributes)
+  #   restaurant
+  # end
+
 end

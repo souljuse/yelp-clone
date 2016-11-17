@@ -1,6 +1,11 @@
 %p= @restaurant.name
 %p= @restaurant.description
-= link_to "Write a Review", new_restaurant_review_path(@restaurant)
+
+-if current_user.has_reviewed?(@restaurant)
+  %p You have already reviewed this restaurant
+-else
+  = link_to "Write a Review", new_restaurant_review_path(@restaurant)
+
 %p= @restaurant.rating
 - @reviews.each do |review|
   %p

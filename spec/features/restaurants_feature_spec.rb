@@ -1,22 +1,47 @@
 require 'rails_helper'
 
-feature 'restaurants' do
-  before do
-    sign_up
+context 'no restaurants have been added'do
+  scenario 'should display a prompt to add a restaurant'do
+    visit '/restaurants'
+    expect(page).to have_content 'No restaurants yet'
+    expect(page).to have_link 'Add a restaurant'
   end
+end
 
-  context 'no restaurants have been added'do
-    scenario 'should display a prompt to add a restaurant'do
-      visit '/restaurants'
-      expect(page).to have_content 'No restaurants yet'
-      expect(page).to have_link 'Add a restaurant'
+feature 'restaurants' do
+
+  FactoryGirl.define do
+    factory :user, class: User do
+      email "mail@mail.com"
+      password "123456"
+      id 1
+      # admin false
     end
   end
 
-  context 'restaurants have been added' do
-    let!(:osteria){ Restaurant.create(name: 'Osteria da Mario', description: 'The best Lasagna in town')}
+  FactoryGirl.define do
+    factory :restaurant, class: Restaurant do
+      name "Osteria da Mario"
+      description "The best Lasagna in town"
+      # admin false
+    end
+  end
 
+  before do
+    sign_up
+    user = create(:user)
+    @restaurant = user.restaurants.build(attributes_for(:restaurant))
+    @restaurant.save
+  end
+
+  context 'restaurants have been added' do
+    # let!(:user) { User.create(id: 1) }
+    # let!(:osteria){ user.restaurants.build(name: 'Osteria da Mario', description: 'The best Lasagna in town')}
+    # before do
+    #   osteria.save
+    # end
     scenario 'display restaurants' do
+
       visit '/restaurants'
       expect(page).to have_content('Osteria da Mario')
 
@@ -28,7 +53,7 @@ feature 'restaurants' do
       click_link('Osteria da Mario')
       expect(page).to have_content('Osteria da Mario')
       expect(page).to have_content('The best Lasagna in town')
-      expect(current_path).to eq("/restaurants/#{osteria.id}")
+      expect(current_path).to eq("/restaurants/#{@restaurant.id}")
     end
 
     scenario 'let a user edit a restaurant' do
@@ -36,6 +61,7 @@ feature 'restaurants' do
        click_link 'Edit Osteria da Mario'
        fill_in 'Name', with: 'Osteria di Mario'
        fill_in 'Description', with: 'Deep fried spaghetti'
+
        click_button 'Update Restaurant'
        expect(current_path).to eq '/restaurants'
        click_link('Osteria di Mario')
@@ -85,5 +111,4 @@ feature 'restaurants' do
       end
     end
   end
-
 end
