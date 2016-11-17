@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'restaurants' do
+  before do
+    sign_up
+  end
+
   context 'no restaurants have been added'do
     scenario 'should display a prompt to add a restaurant'do
       visit '/restaurants'
