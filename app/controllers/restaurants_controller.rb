@@ -11,8 +11,9 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
-    p current_user.id
+    @user = User.find(current_user.id)
+    @restaurant = @user.build_restaurant(restaurant_params)
+
     if @restaurant.save
       redirect_to(restaurants_path)
     else
@@ -21,7 +22,7 @@ class RestaurantsController < ApplicationController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :uid)
+    params.require(:restaurant).permit(:name, :description, :user_id)
   end
 
   def show
@@ -45,4 +46,5 @@ class RestaurantsController < ApplicationController
     flash[:notice] = 'Restaurant deleted successfully'
     redirect_to '/restaurants'
   end
+
 end
