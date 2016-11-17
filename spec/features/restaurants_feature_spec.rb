@@ -1,6 +1,10 @@
 require 'rails_helper'
+require 'web_helpers'
 
 feature 'restaurants' do
+
+  before { User.create email: 'ali@test.com', password: 'password', password_confirmation: 'password' }
+
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -23,6 +27,7 @@ feature 'restaurants' do
 
   context 'creating restaurants' do
     scenario 'prompts user to fill out a form, then displays the new restaurant' do
+      sign_in
       visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
@@ -33,6 +38,7 @@ feature 'restaurants' do
 
     context 'an invalid restaurant' do
       scenario 'does not let you submit a name that is too short' do
+        sign_in
         visit '/restaurants'
         click_link 'Add a restaurant'
         fill_in 'Name', with: 'kf'
@@ -48,10 +54,11 @@ feature 'restaurants' do
   let!(:kfc){ Restaurant.create(name:'KFC') }
 
     scenario 'lets a user view a restaurant' do
+      sign_in
       visit '/restaurants'
-        click_link 'KFC'
-        expect(page).to have_content 'KFC'
-        expect(current_path).to eq "/restaurants/#{kfc.id}"
+      click_link 'KFC'
+      expect(page).to have_content 'KFC'
+      expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
   end
 
@@ -60,6 +67,7 @@ feature 'restaurants' do
     before { Restaurant.create name: 'KFC' }
 
     scenario 'let a user edit a restaurant' do
+      sign_in
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -76,6 +84,7 @@ feature 'restaurants' do
     before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
 
     scenario 'removes a restaurant when a user clicks a delete link' do
+      sign_in
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
