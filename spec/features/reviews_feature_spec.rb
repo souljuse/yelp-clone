@@ -2,11 +2,13 @@ require 'rails_helper'
 require 'web_helpers'
 
 feature 'reviewing' do
-  before { Restaurant.create name: 'KFC' }
-  before { User.create email: 'ali@test.com', password: 'password', password_confirmation: 'password' }
+
+  before do
+    sign_up
+    sign_in_and_create_restaurant
+  end
 
   scenario 'allows users to leave a review using a form' do
-     sign_in
      visit '/restaurants'
      click_link 'Review KFC'
      fill_in "Thoughts", with: "so so"
