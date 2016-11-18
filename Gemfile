@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'shoulda'
 gem 'omniauth-facebook'
 gem 'envyable'
 gem 'devise'
