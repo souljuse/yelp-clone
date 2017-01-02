@@ -1,24 +1,16 @@
-# README
+# Yup, yelp!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a prototype of a Web App similar to Yelp in Rails.
+You can add a restaurant, review and rate it. Caution: it is just plain text ;)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Install
+1. Clone this repository
+2. Run
+```
+bin/rails db:migrate RAILS_ENV=development
+```
+3. Run
+```
+bin/rails s
+```
+4. Visit http://localhost:3000/
