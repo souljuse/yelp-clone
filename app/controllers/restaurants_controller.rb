@@ -20,10 +20,6 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :user_id)
-  end
-
   def show
     @restaurant = Restaurant.find(params[:id])
     @reviews = Review.where("restaurant_id = #{@restaurant.id}")
@@ -44,6 +40,10 @@ class RestaurantsController < ApplicationController
     @restaurant.destroy
     flash[:notice] = 'Restaurant deleted successfully'
     redirect_to '/restaurants'
+  end
+  private
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :description, :user_id)
   end
 
 end
