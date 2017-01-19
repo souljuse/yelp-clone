@@ -28,7 +28,7 @@ feature 'restaurants' do
   end
 
   before do
-    sign_up
+    sign_up('test@example.com')
     user = create(:user)
     @restaurant = user.restaurants.build(attributes_for(:restaurant))
     @restaurant.save

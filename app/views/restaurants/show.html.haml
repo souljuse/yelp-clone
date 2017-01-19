@@ -3,6 +3,8 @@
   %div.restaurant_detail
     %h1= @restaurant.name
     %p= @restaurant.description
+    %span Average rating:
+    %span.badge= star_rating(@restaurant.average_rating.to_i)
 
   %div.review_detail
     -if current_user == nil
@@ -18,4 +20,4 @@
         %li
         =review.thoughts
         %span.badge
-        =review.rating
+        =star_rating(review.rating)

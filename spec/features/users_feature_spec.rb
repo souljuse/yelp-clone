@@ -29,7 +29,7 @@ feature "User: " do
 
   context "user signed up" do
     before do
-      sign_up
+      sign_up('test@example.com')
     end
 
     it "should see 'sign out' link" do
@@ -47,7 +47,7 @@ feature "User: " do
 
   context 'user signed in' do
     before do
-      sign_up
+      sign_up('test@example.com')
     end
 
     it "should not see a 'sign in' link and a 'sign up' link" do

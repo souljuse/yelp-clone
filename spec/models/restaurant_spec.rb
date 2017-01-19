@@ -14,4 +14,15 @@ describe Restaurant, type: :model do
     restaurant2 = Restaurant.new(name: "Ciao")
     expect(restaurant2).to have(1).error_on(:name)
   end
+
+  # context '1 review' do
+  #   it 'returns that rating' do
+  #     user = User.create(email: "test@test.com", password: "123456")
+  #     restaurant1 = user.restaurants.build(name: "Ciao")
+  #     restaurant1.save
+  #     restaurant1.reviews.create(thoughts: "oh yeah", rating: 4)
+  #     restaurant1.reviews.create(thoughts: "oh yeah", rating: 2)
+  #     expect(restaurant1.average_rating).to eq 3
+  #   end
+  # end
 end
