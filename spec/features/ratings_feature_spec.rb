@@ -8,15 +8,6 @@ feature 'Rate a restaurant:' do
     chinese.save
   end
 
-  def leave_review(thoughts, rating)
-    visit '/'
-    click_link('Chinese Restaurant')
-    click_link('Write a Review')
-    fill_in 'review_thoughts', with: thoughts
-    select rating, from: 'Rating'
-    click_button('Create Review')
-  end
-
   context 'user can rate a restaurant' do
     scenario 'Users can leave a review' do
       leave_review('I am not the masses but Chinese food is always nice', 3)

@@ -19,3 +19,12 @@ def sign_up_and_sign_in(email)
   sign_up(email)
   sign_in(email)
 end
+
+def leave_review(thoughts, rating)
+  visit '/'
+  click_link('Chinese Restaurant')
+  click_link('Write a Review')
+  fill_in 'review_thoughts', with: thoughts
+  select rating, from: 'Rating'
+  click_button('Create Review')
+end
