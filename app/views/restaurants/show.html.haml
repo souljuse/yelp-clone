@@ -21,3 +21,5 @@
         =review.thoughts
         %span.badge
         =star_rating(review.rating)
+        %p= pluralize review.endorsements.count, 'endorsement'
+        =link_to "Endorse Review", new_review_endorsement_path(review)
