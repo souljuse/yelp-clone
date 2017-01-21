@@ -17,9 +17,9 @@
     %p= @restaurant.rating
     - @reviews.each do |review|
       %ul
-        %li
+        %li{:class => ("data-no-turbolink" if request.post?)}
         =review.thoughts
-        %span.badge
+        %span.badge{:class => ("data-no-turbolink" if request.post?)}
         =star_rating(review.rating)
         = link_to "Endorse", review_endorsements_path(review),  class: 'endorsements-link'
         %span.endorsements_count= review.endorsements.count

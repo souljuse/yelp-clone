@@ -9,12 +9,12 @@ feature 'endorsing reviews' do
     rev.save
   end
 
-  # it 'a user can endorse a review, which updates the review endorsement count', js: true do
-  #   sign_up('test@example.com')
-  #   leave_review('Spaghetti and Cappuccino, the best', 3)
-  #   click_link("Chinese Restaurant")
-  #   click_link('Endorse')
-  #   expect(page).to have_content("1 endorsement")
-  # end
+  it 'a user can endorse a review, which updates the review endorsement count', js: true do
+    sign_up('test@example.com')
+    leave_review('Spaghetti and Cappuccino, the best', 3)
+    click_link("Chinese Restaurant")
+    click_link('Endorse')
+    expect(page).to have_content("1 endorsement")
+  end
 
 end
