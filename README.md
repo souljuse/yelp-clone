@@ -14,3 +14,5 @@ bin/rails db:migrate RAILS_ENV=development
 bin/rails s
 ```
 4. Visit http://localhost:3000/
+
+..or visit https://agile-tor-10201.herokuapp.com
